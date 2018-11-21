@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页面</title>
+     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    {#引入css文件和js文件#}
+    <link href="/static/css/manage.css" rel="stylesheet">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #FFEEC2">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <h4 style="color: #269abc">数据管理系统</h4>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse ">
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><h4 style="color: #269abc"> 欢迎您！{{ user }}</h4></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div>
+    <button class="create" style="color: #5bc0de;background-color:#c1e2b3;height: 40px;font-size: large;margin-top: 80px;margin-left: 100px;">数据获取</button>
+    <button class="display" style="color: #5bc0de;background-color: #c1e2b3;height: 40px;font-size: large;margin-top: 80px;margin-left: 200px;">数据查询</button>
+    <button class="add" style="color: #5bc0de;background-color: #c1e2b3;height: 40px;font-size: large;margin-top: 80px;margin-left: 200px;">统计报表</button>
+    <button class="result" style="color: #5bc0de;background-color: #c1e2b3;height: 40px;font-size: large;margin-top: 80px;margin-left: 200px;">运算结果</button>
+</div>
+{% block content %}
+{% endblock %}
+<script type="text/javascript" src="/static/js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+<script>
+    $(function () {
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                xhr.setRequestHeader('X-CSRFtoken', $.cookie('csrftoken'));
+
+            }
+        });
+        $('.create').click(function () {
+            location.href = "/datas/";
+        });
+        $('.display').click(function () {
+            location.href = "/view/"
+        });
+        $('.add').click(function () {
+            location.href = "/my_forms/"
+        });
+        $('.result').click(function () {
+           $('.res').removeClass('hidden');
+        })
+    })
+</script>
+{% block script %}
+{% endblock %}
+</body>
+</html>

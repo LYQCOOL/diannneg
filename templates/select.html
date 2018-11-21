@@ -1,0 +1,63 @@
+{% extends 'main.html' %}
+{% block content %}
+    <form method="POST" action="/view/">
+    {% csrf_token %}
+    <div style="margin-left: 330px;margin-top: 100px;">
+    <label>开始时间：</label>
+    <input name="date1" class="date1" type="datetime-local"/>
+    <label>结束时间：</label>
+    <input name="date2" class="date" type="datetime-local"/>
+    <button type="submit" class="btn" style="color: #5bc0de;background-color: #c1e2b3;">开始查询</button>
+    </div>
+    </form>
+    <div class="datas">
+    {% if lists %}
+        <center>
+        <h1 style="color: #5bc0de;">过去的电能质量数据如下：</h1></center>
+        {% for rows in lists %}
+        <div>
+     <table border="2" style="margin-left: 30px;">
+        <tbody>
+       {% for row in rows.0 %}
+        <tr>
+        {% if forloop.counter == 1 %}
+         <th>电压偏差</th>
+            {% elif forloop.counter == 2 %}
+            <th>频率偏差</th>
+             {% elif forloop.counter == 3 %}
+            <th>电压谐波</th>
+             {% elif forloop.counter == 4 %}
+            <th>电压波动</th>
+             {% elif forloop.counter == 5 %}
+            <th>电压闪变</th>
+             {% elif forloop.counter == 6 %}
+            <th>电压暂将</th>
+             {% elif forloop.counter == 7 %}
+            <th>电压三相不平衡</th>
+        {% endif %}
+         <td> {{ row.0 }}</td>
+         <td>{{ row.1 }}</td>
+         <td>{{ row.2 }}</td>
+         <td>{{ row.3 }}</td>
+         <td>{{ row.4 }}</td>
+         <td>{{ row.5 }}</td>
+         <td>{{ row.6 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+            <p><h2 class="res" style="margin-left: 600px;margin-top:-100px;color: #5bc0de;">结果：{{ rows.2 }}</h2>
+ <h2 class="res" style="margin-left: 600px;color: #5bc0de;margin-top: 20px;">创建时间：{{ rows.1 }}</h2>
+</p>
+        </div>
+            <br/>
+             <br/>
+             <br/>
+        {% endfor %}
+    {% endif %}
+    </div>
+{% endblock %}
+{% block script %}
+{{ err|safe }}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="datas" style="margin-left: 20px;">
+<h2 style="color: #5bc0de;">电能质量数据：</h2>
+    <table border="2">
+
+        <tbody>
+        {% for row in lists %}
+        <tr>
+        {% if forloop.counter == 1 %}
+         <th>电压偏差</th>
+            {% elif forloop.counter == 2 %}
+            <th>频率偏差</th>
+             {% elif forloop.counter == 3 %}
+            <th>电压谐波</th>
+             {% elif forloop.counter == 4 %}
+            <th>电压波动</th>
+             {% elif forloop.counter == 5 %}
+            <th>电压闪变</th>
+             {% elif forloop.counter == 6 %}
+            <th>电压暂将</th>
+             {% elif forloop.counter == 7 %}
+            <th>电压三相不平衡</th>
+        {% endif %}
+         <td> {{ row.0 }}</td>
+         <td>{{ row.1 }}</td>
+         <td>{{ row.2 }}</td>
+         <td>{{ row.3 }}</td>
+         <td>{{ row.4 }}</td>
+         <td>{{ row.5 }}</td>
+         <td>{{ row.6 }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+ <h2 class="res hidden" style="margin-left: 800px;margin-top: -185px;color: #5bc0de;">计算结果结果是：{{ result }}</h2>
+
+
+</div>
+{% endblock %}
